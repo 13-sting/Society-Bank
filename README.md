@@ -1,2 +1,0 @@
-# Society-Bank
-Main Project
