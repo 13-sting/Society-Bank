@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit Feedback</title>
+    <style>
+        body {
+            background: #f4f7fa;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .feedback-container {
+            max-width: 440px;
+            margin: 60px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+            padding: 36px 32px;
+        }
+        h2 {
+            color: #2563eb;
+            margin-bottom: 18px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1.5px solid #cbd5e1;
+            margin-bottom: 16px;
+            font-size: 1rem;
+            background: #f8fafc;
+            transition: border 0.2s;
+        }
+        input[type="text"]:focus, textarea:focus {
+            border: 1.5px solid #2563eb;
+            outline: none;
+        }
+        button {
+            background: linear-gradient(90deg, #2563eb 60%, #1d4ed8 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 0;
+            font-size: 1.08rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+            width: 100%;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+            margin-top: 8px;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #1d4ed8 60%, #2563eb 100%);
+        }
+        .flash-message {
+            color: #16a34a;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .rating-label {
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            margin-bottom: 18px;
+        }
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+        .star-rating label {
+            font-size: 2rem;
+            color: #d1d5db;
+            cursor: pointer;
+            transition: color 0.2s;
+            padding: 0 2px;
+        }
+        .star-rating input[type="radio"]:checked ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: #fbbf24;
+        }
+        @media (max-width: 600px) {
+            .feedback-container {
+                padding: 18px 6vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% if success %}
+      <div class="flash-message" style="background:#d1fae5;color:#065f46;padding:10px 20px;border-radius:6px;margin-bottom:16px;text-align:center;">
+        Feedback submitted successfully!
+      </div>
+      <script>
+        setTimeout(function() {
+          window.location.href = "{{ url_for('student_dashboard') }}";
+        }, 1800); // Redirect after 1.8 seconds
+      </script>
+    {% endif %}
+    <div class="feedback-container">
+        <h2>Submit Feedback</h2>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash-message">
+              {{ messages[0] }}
+            </div>
+          {% endif %}
+        {% endwith %}
+        <form method="post" action="{{ url_for('feedback') }}">
+            <label for="issue">Issue</label>
+            <input type="text" id="issue" name="issue" required placeholder="Enter the issue or subject">
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" required placeholder="Describe your feedback"></textarea>
+
+            <label class="rating-label" for="rating">Rate Your Experience</label>
+            <div class="star-rating">
+                <input type="radio" id="star5" name="rating" value="5" required /><label for="star5" title="5 stars">&#9733;</label>
+                <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars">&#9733;</label>
+                <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars">&#9733;</label>
+                <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars">&#9733;</label>
+                <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star">&#9733;</label>
+            </div>
+
+            <button type="submit">Send Feedback</button>
+        </form>
+    </div>
+</body>
+</html>

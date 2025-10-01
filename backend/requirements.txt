@@ -1,0 +1,4 @@
+Flask
+Flask-SQLAlchemy
+Flask-Login
+mysqlclient    # or another database client

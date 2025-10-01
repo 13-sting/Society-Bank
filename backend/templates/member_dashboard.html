@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Member Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f3f4f6; }
+        .container { max-width: 800px; margin: 40px auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #e5e7eb; padding: 32px; }
+        h1 { color: #0a52b9; text-align: center; margin-bottom: 24px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #0a52b9; color: #fff; }
+        .section { margin-bottom: 32px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ member.name }}</h1>
+        <div class="section">
+            <h2>Account Summary</h2>
+            <p><strong>Account No:</strong> {{ member.account_no }}</p>
+            <p><strong>Balance:</strong> ₹{{ member.balance }}</p>
+            <p><strong>Email:</strong> {{ member.email }}</p>
+            <p><strong>Phone:</strong> {{ member.phone }}</p>
+        </div>
+        <div class="section">
+            <h2>Transactions</h2>
+            <table>
+                <tr><th>Date</th><th>Type</th><th>Amount</th><th>Description</th></tr>
+                {% for txn in transactions %}
+                <tr>
+                    <td>{{ txn.date }}</td>
+                    <td>{{ txn.type }}</td>
+                    <td>₹{{ txn.amount }}</td>
+                    <td>{{ txn.description }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="4">No transactions found.</td></tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="section">
+            <h2>Loans</h2>
+            <table>
+                <tr><th>Amount</th><th>Interest Rate</th><th>Tenure (months)</th><th>Status</th></tr>
+                {% for loan in loans %}
+                <tr>
+                    <td>₹{{ loan.amount }}</td>
+                    <td>{{ loan.interest_rate }}%</td>
+                    <td>{{ loan.tenure_months }}</td>
+                    <td>{{ loan.status }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="4">No loans found.</td></tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="section">
+            <h2>Share Holdings</h2>
+            <table>
+                <tr><th>Share Type</th><th>Quantity</th><th>Value</th></tr>
+                {% for share in shares %}
+                <tr>
+                    <td>{{ share.type }}</td>
+                    <td>{{ share.quantity }}</td>
+                    <td>₹{{ share.value }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="3">No share holdings found.</td></tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Announcements</title>
+</head>
+<body>
+    <h1>Admin Announcements</h1>
+    <form method="post">
+        <textarea name="message" placeholder="Enter announcement" required></textarea>
+        <button type="submit">Add Announcement</button>
+    </form>
+    <ul>
+        {% for announcement in announcements %}
+            <li>{{ announcement.message }} ({{ announcement.created_at }})</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('admin') }}">Back to Admin Dashboard</a>
+</body>
+</html>
