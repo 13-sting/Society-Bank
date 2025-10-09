@@ -102,8 +102,10 @@
             <div class="mt-4">
                 <h4 class="font-semibold mb-2">Recent Announcements:</h4>
                 <ul>
-                    {% for ann in announcements %}
-                        <li class="text-gray-700 text-sm mb-1">{{ ann.message }} <span class="text-xs text-gray-400">({{ ann.created_at.strftime('%Y-%m-%d %H:%M') }})</span></li>
+                    {% for announcement in announcements %}
+                        <li class="text-gray-700 text-sm mb-1">{{ announcement.message }} <span class="text-xs text-gray-400">({{ announcement.created_at }})</span></li>
+                    {% else %}
+                        <li class="text-gray-500">No announcements yet.</li>
                     {% endfor %}
                 </ul>
             </div>

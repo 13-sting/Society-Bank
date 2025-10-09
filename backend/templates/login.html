@@ -66,15 +66,11 @@
     <div class="container">
         <h1>Login</h1>
         
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
+        {% if error %}
         <div class="error">
-            {% for category, message in messages %}
-            <p>{{ message }}</p>
-            {% endfor %}
+            {{ error }}
         </div>
         {% endif %}
-        {% endwith %}
         
         <form method="POST" action="{{ url_for('login') }}">
             <label for="username">Username:</label>
