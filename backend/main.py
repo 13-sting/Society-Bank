@@ -246,6 +246,11 @@ def list_transactions(request: Request, db: Session = Depends(get_db)):
     transactions = db.query(models.Transaction).all()
     return templates.TemplateResponse("transactions.html", {"request": request, "transactions": transactions})
 
+# Loan application
+@app.get("/loan-application", response_class=HTMLResponse)
+def loan_application_form(request: Request):
+    return templates.TemplateResponse("loan_application.html", {"request": request})
+
 # You can add more endpoints as needed for your banking features.
 
 # Run with: uvicorn main:app --reload

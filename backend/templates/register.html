@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loan Application Form - Bengaluru University Employees' Loan Cooperative Society</title>
+    <title>Membership Application Form - Bangalore University Employees Co-operative Credit Society</title>
     <style>
         body {
             font-family: 'Times New Roman', Times, serif;
@@ -25,22 +25,20 @@
             font-size: 14px;
             margin-bottom: 20px;
         }
-        .fee-note {
-            text-align: center;
-            font-weight: bold;
+        .greeting {
+            text-align: left;
             margin-bottom: 20px;
-            font-size: 12px;
+            font-style: italic;
         }
-        .section-header {
-            font-weight: bold;
-            margin-top: 30px;
-            margin-bottom: 10px;
-            text-decoration: underline;
+        .request-paragraph {
+            text-align: justify;
+            margin-bottom: 30px;
+            font-size: 12px;
         }
         .form-group {
             margin-bottom: 15px;
             display: flex;
-            align-items: flex-start;
+            align-items: center;
         }
         .form-group label {
             width: 300px;
@@ -48,7 +46,6 @@
             display: inline-block;
             margin-right: 10px;
             font-size: 12px;
-            margin-top: 5px;
         }
         .form-group input, .form-group textarea, .form-group select {
             width: 400px;
@@ -60,6 +57,18 @@
         .form-group textarea {
             height: 60px;
             resize: vertical;
+        }
+        .nominee-group {
+            margin-left: 310px;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .checkbox-group label {
+            width: auto;
+            margin-right: 10px;
         }
         .date-signature {
             margin-top: 40px;
@@ -98,33 +107,23 @@
 </head>
 <body>
     <div class="header">
-        <h1>Bengaluru University Employees' Loan Cooperative Society (Niyamita)</h1>
+        <h1>Bangalore University Employees Co-operative Credit Society (Regd.)</h1>
         <p>Jnanabharathi, Bengaluru - 560 056</p>
-        <h2>Loan Application Form</h2>
-        <p class="fee-note">Application Fee: ₹50/-</p>
+        <h2>(Regular)</h2>
+        <h2>Application for Membership</h2>
+        <p>Bangalore University Employees Co-operative Credit Society (Regd.), Jnanabharathi, Bengaluru - 560 056.</p>
     </div>
 
-    <form id="loanForm">
-        <div class="section-header">Applicant's Details</div>
+    <p class="greeting">Respected Sir/Madam,</p>
 
+    <p class="request-paragraph">
+        I request you to kindly admit me as a member of the above-mentioned Co-operative Credit Society and issue me a share certificate. I agree to abide by the rules and bylaws of the society. I am providing the following information.
+    </p>
+
+    <form id="membershipForm">
         <div class="form-group">
             <label for="applicantName">Applicant's Name:</label>
             <input type="text" id="applicantName" name="applicantName" required>
-        </div>
-
-        <div class="form-group">
-            <label for="membershipNumber">Society Membership Number:</label>
-            <input type="text" id="membershipNumber" name="membershipNumber" required>
-        </div>
-
-        <div class="form-group">
-            <label for="designation">Designation and Office/Department:</label>
-            <input type="text" id="designation" name="designation" required>
-        </div>
-
-        <div class="form-group">
-            <label for="homeAddress">Home Address:</label>
-            <textarea id="homeAddress" name="homeAddress" required></textarea>
         </div>
 
         <div class="form-group">
@@ -133,65 +132,67 @@
         </div>
 
         <div class="form-group">
-            <label for="remainingService">Remaining Service Period at the University:</label>
-            <input type="text" id="remainingService" name="remainingService" required>
+            <label for="designation">Designation and Office Address:</label>
+            <textarea id="designation" name="designation" required></textarea>
         </div>
 
         <div class="form-group">
-            <label for="loanAmount">Desired Loan Amount (in words):</label>
-            <input type="text" id="loanAmount" name="loanAmount" required>
+            <label for="officeTel">Office Telephone Number:</label>
+            <input type="tel" id="officeTel" name="officeTel">
         </div>
 
         <div class="form-group">
-            <label for="reasonForLoan">Reason for Loan:</label>
-            <textarea id="reasonForLoan" name="reasonForLoan" required></textarea>
+            <label for="mobile">Mobile Number:</label>
+            <input type="tel" id="mobile" name="mobile" required>
         </div>
 
         <div class="form-group">
-            <label for="repaymentMethod">Method of Repayment:</label>
-            <textarea id="repaymentMethod" name="repaymentMethod" required></textarea>
+            <label for="bankAccount">Bank Savings Account Number:</label>
+            <input type="text" id="bankAccount" name="bankAccount" required>
         </div>
 
         <div class="form-group">
-            <label for="salaryAllowances">Salary and Allowances:</label>
-            <textarea id="salaryAllowances" name="salaryAllowances" required></textarea>
+            <label for="aadhaar">Aadhaar Number:</label>
+            <input type="text" id="aadhaar" name="aadhaar" required>
         </div>
 
         <div class="form-group">
-            <label for="netSalary">Net Salary (as per latest salary certificate):</label>
-            <input type="text" id="netSalary" name="netSalary" required>
-        </div>
-
-        <div class="section-header">Guarantor's Details</div>
-
-        <div class="form-group">
-            <label for="guarantorName">Guarantor's Name:</label>
-            <input type="text" id="guarantorName" name="guarantorName" required>
+            <label for="pan">PAN Number:</label>
+            <input type="text" id="pan" name="pan" required>
         </div>
 
         <div class="form-group">
-            <label for="guarantorMembership">Society Membership Number:</label>
-            <input type="text" id="guarantorMembership" name="guarantorMembership" required>
+            <label>Nominee Details:</label>
+        </div>
+
+        <div class="form-group nominee-group">
+            <label for="nomineeName">(a) Nominee's Name:</label>
+            <input type="text" id="nomineeName" name="nomineeName">
+        </div>
+
+        <div class="form-group nominee-group">
+            <label for="nomineeAge">(b) Age:</label>
+            <input type="number" id="nomineeAge" name="nomineeAge" min="0">
+        </div>
+
+        <div class="form-group nominee-group">
+            <label for="relationship">(c) Relationship with the Applicant:</label>
+            <input type="text" id="relationship" name="relationship">
         </div>
 
         <div class="form-group">
-            <label for="guarantorDesignation">Designation and Office/Department:</label>
-            <input type="text" id="guarantorDesignation" name="guarantorDesignation" required>
+            <label>Are you a member of any other Co-operative Society? If yes, details:</label>
+            <textarea id="otherSociety" name="otherSociety"></textarea>
         </div>
 
         <div class="form-group">
-            <label for="guarantorDob">Date of Birth:</label>
-            <input type="date" id="guarantorDob" name="guarantorDob" required>
+            <label>Is the application fee paid? Receipt Number:</label>
+            <input type="text" id="feeReceipt" name="feeReceipt">
         </div>
 
         <div class="form-group">
-            <label for="guarantorRemainingService">Remaining Service Period:</label>
-            <input type="text" id="guarantorRemainingService" name="guarantorRemainingService" required>
-        </div>
-
-        <div class="form-group">
-            <label for="guarantorNetSalary">Net Salary:</label>
-            <input type="text" id="guarantorNetSalary" name="guarantorNetSalary" required>
+            <label for="otherDetails">Any other details if any:</label>
+            <textarea id="otherDetails" name="otherDetails"></textarea>
         </div>
 
         <div class="date-signature">
@@ -206,7 +207,7 @@
     </form>
 
     <div class="footer">
-        <p>Note: All the details requested in the application must be filled completely. Incomplete applications will not be approved. Please print and sign this form before submission. Ensure all required fields are filled.</p>
+        <p>Note: Please print and sign this form before submission. Ensure all required fields are filled.</p>
     </div>
 
     <script>
