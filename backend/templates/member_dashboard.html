@@ -25,13 +25,75 @@
         .logout-btn:hover {
             background: #c53030;
         }
+        .navbar {
+            background: #0a52b9;
+            color: #fff;
+            padding: 12px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 8px 8px 0 0;
+        }
+        .navbar .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-btn {
+            background: #0a52b9;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: #fff;
+            min-width: 160px;
+            box-shadow: 0 2px 8px #e5e7eb;
+            z-index: 1;
+            border-radius: 4px;
+            margin-top: 4px;
+        }
+        .dropdown-content a {
+            color: #0a52b9;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 15px;
+        }
+        .dropdown-content a:hover {
+            background: #f3f4f6;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <form action="{{ url_for('logout') }}" method="post" style="text-align: right;" onsubmit="event.preventDefault(); window.location.href='{{ url_for('index') }}';">
+    <div class="navbar">
+        <div class="nav-links">
+            <a href="/" style="color:#fff; text-decoration:none; font-weight:600;">Home</a>
+            <div class="dropdown">
+                <button class="dropdown-btn">Application ▼</button>
+                <div class="dropdown-content">
+                    <a href="/loan-application">Loan</a>
+                    <a href="/fixed-deposit-application">Fixed Deposit</a>
+                </div>
+            </div>
+        </div>
+        <form action="/logout" method="get" style="margin:0;">
             <button type="submit" class="logout-btn">Log Out</button>
         </form>
+    </div>
+    <div class="container">
         <h1>Welcome, {{ member.name }}</h1>
         <div class="section">
             <h2>Account Summary</h2>

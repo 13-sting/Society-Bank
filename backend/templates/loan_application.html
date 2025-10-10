@@ -1,169 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Loan Application</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #f0f4ff;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: stretch;
-    }
-    .container {
-      display: flex;
-      width: 100%;
-      min-height: 100vh;
-    }
-    .sidebar {
-      width: 240px;
-      background: #0a52b9;
-      color: #fff;
-      padding: 2rem 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      min-height: 100vh;
-    }
-    .sidebar .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 2rem;
-      letter-spacing: 1px;
-    }
-    .sidebar nav a {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 0.75rem 1rem;
-      color: #cbd5e1;
-      text-decoration: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      margin-bottom: 10px;
-      transition: background 0.2s, color 0.2s;
-    }
-    .sidebar nav a.active,
-    .sidebar nav a:hover {
-      background: #f7b500;
-      color: #0a52b9;
-    }
-    .main-content {
-      flex: 1;
-      padding: 2.5rem 2rem;
-      background: #f0f4ff;
-      min-height: 100vh;
-    }
-    .main-content h1 {
-      color: #0a52b9;
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-      letter-spacing: 1px;
-    }
-    .loan-form-card {
-      background: #fff;
-      border-radius: 14px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
-      padding: 2rem 2.5rem;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-    .loan-form-card h2 {
-      margin-bottom: 1.2rem;
-      color: #0a52b9;
-      font-size: 1.3rem;
-      font-weight: 600;
-    }
-    .loan-form-card label {
-      display: block;
-      margin-bottom: 0.5rem;
-      color: #374151;
-      font-weight: 500;
-    }
-    .loan-form-card input,
-    .loan-form-card select {
-      width: 100%;
-      padding: 0.7rem;
-      margin-bottom: 1.2rem;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 1rem;
-      background: #f9fafb;
-      transition: border 0.2s;
-    }
-    .loan-form-card input:focus,
-    .loan-form-card select:focus {
-      border-color: #0a52b9;
-      outline: none;
-    }
-    .loan-form-card button {
-      background: #0a52b9;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 0.8rem 2rem;
-      font-size: 1rem;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background 0.2s;
-      margin-top: 0.5rem;
-    }
-    .loan-form-card button:hover {
-      background: #2563eb;
-    }
-    @media (max-width: 700px) {
-      .container { flex-direction: column; }
-      .sidebar { width: 100%; min-height: unset; }
-      .main-content { padding: 1rem; }
-      .loan-form-card { padding: 1rem; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Loan Application Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f3f4f6; }
+        .container { max-width: 600px; margin: 40px auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #e5e7eb; padding: 32px; }
+        h1, h2 { color: #0a52b9; text-align: center; }
+        label { display: block; margin-top: 18px; font-weight: bold; }
+        input, textarea, select { width: 100%; padding: 8px; margin-top: 6px; border: 1px solid #ccc; border-radius: 4px; }
+        button { background: #0a52b9; color: #fff; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; margin-top: 24px; width: 100%; font-weight: 600; }
+        button:hover { background: #2563eb; }
+        .note { color: #e53e3e; margin-top: 18px; font-size: 15px; }
+        .section-title { margin-top: 32px; margin-bottom: 8px; font-size: 18px; color: #2563eb; }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar">
-      <div class="logo">Society Bank</div>
-      <nav>
-  <a href="{{ url_for('admin') }}"><i class="fas fa-home"></i> Dashboard</a>
-        <a href="{{ url_for('list_loans') }}" class="active"><i class="fas fa-file-invoice-dollar"></i> Loans</a>
-        <a href="{{ url_for('list_members') }}"><i class="fas fa-users"></i> Members</a>
-        <a href="{{ url_for('list_accounts') }}"><i class="fas fa-university"></i> Accounts</a>
-        <a href="{{ url_for('list_transactions') }}"><i class="fas fa-exchange-alt"></i> Transactions</a>
-      </nav>
-    </aside>
-    <!-- Main Content -->
-    <main class="main-content">
-      <h1>Loan Application</h1>
-      <div class="loan-form-card">
-        <h2>Apply for a Loan</h2>
-        <form method="POST" action="{{ url_for('apply_loan') }}">
-          <label for="member_id">Member ID</label>
-          <input type="text" id="member_id" name="member_id" required />
+    <div class="container">
+        <h1>Bengaluru University Employees' Loan Cooperative Society (Niyamita)</h1>
+        <h2>Jnanabharathi, Bengaluru - 560 056</h2>
+        <p style="text-align:center; margin-bottom:16px;">Loan Application Form</p>
+        <p style="text-align:center; font-weight:bold;">Application Fee: ₹50/-</p>
+        <form method="POST" action="/loan-application">
+            <div class="section-title">Applicant's Details</div>
+            <label for="applicant_name">Applicant's Name:</label>
+            <input type="text" id="applicant_name" name="applicant_name" required>
 
-          <label for="amount">Loan Amount</label>
-          <input type="number" id="amount" name="amount" min="1000" step="0.01" required />
+            <label for="membership_no">Society Membership Number:</label>
+            <input type="text" id="membership_no" name="membership_no" required>
 
-          <label for="interest_rate">Interest Rate (%)</label>
-          <input type="number" id="interest_rate" name="interest_rate" min="1" step="0.01" required />
+            <label for="designation">Designation and Office/Department:</label>
+            <input type="text" id="designation" name="designation" required>
 
-          <label for="tenure_months">Tenure (Months)</label>
-          <input type="number" id="tenure_months" name="tenure_months" min="1" required />
+            <label for="home_address">Home Address:</label>
+            <textarea id="home_address" name="home_address" rows="2" required></textarea>
 
-          <label for="purpose">Purpose</label>
-          <input type="text" id="purpose" name="purpose" required />
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required>
 
-          <button type="submit"><i class="fas fa-paper-plane"></i> Submit Application</button>
+            <label for="service_period">Remaining Service Period at the University (years):</label>
+            <input type="number" id="service_period" name="service_period" min="0" required>
+
+            <label for="loan_amount">Desired Loan Amount (in words):</label>
+            <input type="text" id="loan_amount" name="loan_amount" required>
+
+            <label for="loan_reason">Reason for Loan:</label>
+            <textarea id="loan_reason" name="loan_reason" rows="2" required></textarea>
+
+            <label for="repayment_method">Method of Repayment:</label>
+            <input type="text" id="repayment_method" name="repayment_method" required>
+
+            <label for="salary_allowances">Salary and Allowances:</label>
+            <input type="text" id="salary_allowances" name="salary_allowances" required>
+
+            <label for="net_salary">Net Salary (as per latest salary certificate):</label>
+            <input type="number" id="net_salary" name="net_salary" min="0" required>
+
+            <div class="section-title">Guarantor's Details</div>
+            <label for="guarantor_name">Guarantor's Name:</label>
+            <input type="text" id="guarantor_name" name="guarantor_name" required>
+
+            <label for="guarantor_membership_no">Society Membership Number:</label>
+            <input type="text" id="guarantor_membership_no" name="guarantor_membership_no" required>
+
+            <label for="guarantor_designation">Designation and Office/Department:</label>
+            <input type="text" id="guarantor_designation" name="guarantor_designation" required>
+
+            <label for="guarantor_dob">Date of Birth:</label>
+            <input type="date" id="guarantor_dob" name="guarantor_dob" required>
+
+            <label for="guarantor_service_period">Remaining Service Period (years):</label>
+            <input type="number" id="guarantor_service_period" name="guarantor_service_period" min="0" required>
+
+            <label for="guarantor_net_salary">Net Salary:</label>
+            <input type="number" id="guarantor_net_salary" name="guarantor_net_salary" min="0" required>
+
+            <div class="note">
+                Note: All the details requested in the application must be filled completely. Incomplete applications will not be approved.
+            </div>
+            <button type="submit">Submit Application</button>
         </form>
-      </div>
-    </main>
-  </div>
+    </div>
 </body>
 </html>

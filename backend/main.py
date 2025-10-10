@@ -132,7 +132,7 @@ def admin_action(request: Request, member_id: int = Form(...), action: str = For
 @app.get("/admin/announcements", response_class=HTMLResponse, name="manage_announcements")
 def manage_announcements(request: Request, db: Session = Depends(get_db)):
     announcements = db.query(models.Announcement).order_by(models.Announcement.created_at.desc()).all()
-    return templates.TemplateResponse("admin_announcements.html", {"request": request, "announcements": announcements})
+    return templates.TemplateResponse("admin.html", {"request": request, "announcements": announcements})
 
 @app.post("/admin/announcements")
 def add_announcement(request: Request, message: str = Form(...), db: Session = Depends(get_db)):
