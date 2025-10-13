@@ -1,9 +1,9 @@
 from fastapi import FastAPI, Request, Form, Depends, status, HTTPException, Cookie
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
-from db import SessionLocal, engine
+from db import SessionLocal, engine, Base
 import models
 import requests
 import smtplib
@@ -12,6 +12,9 @@ import random
 from typing import List
 
 app = FastAPI()
+
+# Create the database tables
+Base.metadata.create_all(bind=engine)
 
 # Mount static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -147,20 +150,29 @@ def register_form(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
 
 @app.post("/register")
-def register(request: Request, name: str = Form(...), account_no: str = Form(...), email: str = Form(...), phone: str = Form(...), balance: float = Form(0.0), db: Session = Depends(get_db)):
-    try:
-        new_member = models.Member(
-            name=name,
-            account_no=account_no,
-            email=email,
-            phone=phone,
-            balance=balance
-        )
-        db.add(new_member)
-        db.commit()
-        return RedirectResponse(url="/login", status_code=status.HTTP_303_SEE_OTHER)
-    except Exception as e:
-        return templates.TemplateResponse("register.html", {"request": request, "error": f"Registration failed: {str(e)}"})
+async def register_member(request: Request, db: Session = Depends(SessionLocal)):
+    data = await request.json()
+    new_member = models.Member(
+        name=data.get("applicantName"),
+        dob=data.get("dateOfBirth"),
+        designation=data.get("designation"),
+        office_tel=data.get("officeTel"),
+        mobile=data.get("mobile"),
+        bank_account=data.get("bankAccount"),
+        aadhaar=data.get("aadhaar"),
+        pan=data.get("pan"),
+        nominee_name=data.get("nomineeName"),
+        nominee_age=data.get("nomineeAge"),
+        relationship=data.get("relationship"),
+        other_society=data.get("otherSociety"),
+        fee_receipt=data.get("feeReceipt"),
+        other_details=data.get("otherDetails"),
+        application_date=data.get("applicationDate")
+    )
+    db.add(new_member)
+    db.commit()
+    db.refresh(new_member)
+    return JSONResponse({"status": "success", "member_id": new_member.id})
 
 # Add member (admin)
 @app.get("/admin/add-member", response_class=HTMLResponse, name="admin_add_member")

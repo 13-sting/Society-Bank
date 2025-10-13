@@ -1,23 +1,28 @@
 from datetime import datetime, timezone
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Column, Integer, String, Date
 
 db = SQLAlchemy()
 
 class Member(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    account_no = db.Column(db.String(20), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    phone = db.Column(db.String(15))
-    balance = db.Column(db.Float, default=0.0)
-    is_approved = db.Column(db.Boolean, default=False)
-    address = db.Column(db.String(255))
-    dob = db.Column(db.String(20))
-    gender = db.Column(db.String(10))
-    username = db.Column(db.String(50), unique=True)
-    password = db.Column(db.String(100))
-    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    __tablename__ = "members"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    dob = Column(String)
+    designation = Column(String)
+    office_tel = Column(String)
+    mobile = Column(String)
+    bank_account = Column(String)
+    aadhaar = Column(String)
+    pan = Column(String)
+    nominee_name = Column(String)
+    nominee_age = Column(String)
+    relationship = Column(String)
+    other_society = Column(String)
+    fee_receipt = Column(String)
+    other_details = Column(String)
+    application_date = Column(String)
 
     def __repr__(self) -> str:
         return f'<Member {self.name}>'

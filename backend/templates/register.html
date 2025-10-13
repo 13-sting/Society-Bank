@@ -86,6 +86,18 @@
             text-align: center;
             margin-top: 20px;
         }
+        .submit-group {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .submit-group button {
+            padding: 10px 20px;
+            font-size: 12px;
+            font-family: 'Times New Roman', Times, serif;
+            border: 1px solid #000;
+            background-color: #fff;
+            cursor: pointer;
+        }
         .footer {
             margin-top: 30px;
             text-align: center;
@@ -102,8 +114,13 @@
                 border: none;
                 background: transparent;
             }
+            .submit-group {
+                display: none; /* Hide submit button on print */
+            }
         }
     </style>
+    <!-- Include jsPDF library via CDN for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="header">
@@ -204,15 +221,44 @@
                 <label>Applicant's Signature</label>
             </div>
         </div>
+
+        <div class="submit-group">
+            <button type="submit">Submit Application</button>
+        </div>
     </form>
 
     <div class="footer">
-        <p>Note: Please print and sign this form before submission. Ensure all required fields are filled.</p>
+        <p>Note: Please print and sign this form before submission. Ensure all required fields are filled. Upon submission, data will be stored locally (simulating database) and a PDF will be generated for download.</p>
     </div>
 
     <script>
         // Auto-fill current date
         document.getElementById('applicationDate').valueAsDate = new Date();
+
+        // Handle form submission
+        document.getElementById('membershipForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+
+            // Send data to FastAPI backend
+            const response = await fetch('/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                alert('Application submitted successfully!');
+                window.location.href = '/login';
+            } else {
+                alert('Submission failed. Please try again.');
+            }
+        });
     </script>
 </body>
 </html>
